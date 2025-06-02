@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>URL Shortener</title>
+</head>
+
+<style>
+      body
+      {
+        background-image: url('urlimage.jpg');
+        background-repeat: no-repeat;
+      }
+      .container
+      {
+         background-color:#FFCACC;
+         height: 600px;
+         width: 600px;
+         border: 5px solid #4F091D;
+         border-radius: 10px;
+         margin-top: 70px;
+         margin-left: 450px;
+         box-shadow: 3px 3px 3px 3px rgb(0, 0, 0);
+      }
+      p
+      {
+       font-size: 60px;
+       font-family: Cambria;
+       font-weight: bold;
+       color: #292C6D;
+       margin-top: 70px;
+       margin-left: 100px;    
+      }
+      #longurl
+      {
+         border: 3px solid black;
+         border-radius: 20px;
+         padding-left: 20px;
+         padding-right: 20px;
+         padding-top: 20px;
+         padding-bottom: 20px;
+         font-size: 25px;
+         font-family: serif;
+         font-weight: bold;
+         margin-left: 20px;
+         width: 515px;
+         background-color: #E3F4F4;
+         color: #4F091D; 
+      }
+      #shortend
+      {
+        margin-top: 30px;
+        margin-left: 200px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        width: 200px;
+        border: 2px solid black;
+        border-radius: 50px;
+        font-size: large;
+        font-weight: bold;
+        font-family: serif;
+        color: rgb(255, 255, 255);
+        background-color: #B31312;
+      }
+      #shortend:hover
+      {
+        background-color:#FF0303;
+      }
+      #shortenedurl
+      {
+        margin-top: 30px;
+        margin-left: 20px;
+        padding-left: 23px;
+        padding-right: 23px;
+        padding-top: 23px;
+        padding-bottom: 23px;
+        width: 455px;
+        border: 3px solid black;
+        border-radius: 20px;
+        font-size: 22px;
+        font-family: serif;
+        font-weight: bold;
+        background-color: #E3F4F4;
+        color: #4F091D;
+      }
+      #copybutton
+      {
+        position: relative;
+        top: 0%;
+        left: 0%;
+        right: 25%;
+        height: 55px;
+        width: 55px;
+        border: 3px solid black;
+        border-radius: 90px;
+        color: white;
+        background-color: #B31312;
+      }
+      #copybutton:hover
+      {
+        background-color: #FF0303;
+      }
+</style>
+
+<body>
+      <div class="container">
+          <p>URL Shortener</p>
+          <input type="text" placeholder="Enter the Link Here" id="longurl">
+                 <button id="shortend">Shorten</button><br>
+          <input type="text" placeholder="Short Link" id="shortenedurl">
+                 <button id="copybutton">
+                         <span class="material-symbols-outlined">content_copy</span>
+                 </button>
+      </div>
+
+    
+<script>
+        let btn = document.getElementById("shortend");
+        btn.addEventListener('click', short);
+        async function short()
+        {
+            let longURL = document.getElementById("longurl").value;
+            let shortURL = document.getElementById("shortenedurl");
+            const result = await fetch(`https://api.shrtco.de/v2/shorten?url=${longURL}`);
+            const data = await result.json();
+            shortURL.value = data.result.short_link2;
+        }
+</script>
+
+<script>
+        let newURL = document.getElementById("shortenedurl");
+        let coptButton = document.getElementById("copybutton");
+        coptButton.onclick = ()=>
+        {
+            newURL.select();
+            window.navigator.clipboard.writeText(newURL.value);
+        }
+</script>
+
+</body>
+
+</html>
